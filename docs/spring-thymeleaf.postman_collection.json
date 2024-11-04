@@ -33,11 +33,13 @@
 							"query": [
 								{
 									"key": "name",
-									"value": "{{$randomFirstName}}"
+									"value": "{{$randomFirstName}}",
+									"description": "(Required) An parameter passed for code generation"
 								},
 								{
 									"key": "lang",
 									"value": "pt",
+									"description": "A parameter used for internalization (i18)",
 									"disabled": true
 								}
 							],
@@ -45,176 +47,12 @@
 								{
 									"key": "id",
 									"value": "book_template",
-									"description": "(Required) ID to find the template\n"
+									"description": "(Required) ID to find the template"
 								}
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Return an HTML with the processed template\n",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "text/html"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/template/:id?name=<string>&locale=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"template",
-										":id"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "<string>"
-										},
-										{
-											"key": "locale",
-											"value": "<string>"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "book_template",
-											"description": "(Required) ID to find the template\n"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Date",
-									"value": "<string>",
-									"description": "Response date (now)"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "<string>",
-									"description": "Timeout and a limit for requests on a connection"
-								},
-								{
-									"key": "Content-Type",
-									"value": "text/html"
-								}
-							],
-							"cookie": [],
-							"body": "<string>"
-						},
-						{
-							"name": "Errors throwed when validating the request\n",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json+problem"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/template/:id?name=<string>&locale=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"template",
-										":id"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "<string>"
-										},
-										{
-											"key": "locale",
-											"value": "<string>"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "book_template",
-											"description": "(Required) ID to find the template\n"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json+problem"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Errors throwed when validating the request\n",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json+problem"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/template/:id?name=<string>&locale=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"template",
-										":id"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "<string>"
-										},
-										{
-											"key": "locale",
-											"value": "<string>"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "book_template",
-											"description": "(Required) ID to find the template\n"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json+problem"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Generate the Base64 PDF",
@@ -240,12 +78,12 @@
 								{
 									"key": "name",
 									"value": "{{$randomFirstName}}",
-									"description": "(Required) An parameter passed for code generation\n"
+									"description": "(Required) An parameter passed for code generation"
 								},
 								{
 									"key": "lang",
 									"value": "en",
-									"description": "A parameter used for internalization (i18)\n",
+									"description": "A parameter used for internalization (i18)",
 									"disabled": true
 								}
 							],
@@ -253,176 +91,12 @@
 								{
 									"key": "id",
 									"value": "book_template",
-									"description": "(Required) ID to find the template\n"
+									"description": "(Required) ID to find the template"
 								}
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Return a base64 pdf\n",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/pdf/:id?name=<string>&locale=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"pdf",
-										":id"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "<string>"
-										},
-										{
-											"key": "locale",
-											"value": "<string>"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "book_template",
-											"description": "(Required) ID to find the template\n"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Date",
-									"value": "<string>",
-									"description": "Response date (now)"
-								},
-								{
-									"key": "Keep-Alive",
-									"value": "<string>",
-									"description": "Timeout and a limit for requests on a connection"
-								},
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n  \"content\": \"<string>\"\n}"
-						},
-						{
-							"name": "Errors throwed when validating the request\n",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json+problem"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/pdf/:id?name=<string>&locale=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"pdf",
-										":id"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "<string>"
-										},
-										{
-											"key": "locale",
-											"value": "<string>"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "book_template",
-											"description": "(Required) ID to find the template\n"
-										}
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json+problem"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						},
-						{
-							"name": "Errors throwed when validating the request\n",
-							"originalRequest": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Accept",
-										"value": "application/json+problem"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/v1/pdf/:id?name=<string>&locale=<string>",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"v1",
-										"pdf",
-										":id"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "<string>"
-										},
-										{
-											"key": "locale",
-											"value": "<string>"
-										}
-									],
-									"variable": [
-										{
-											"key": "id",
-											"value": "book_template",
-											"description": "(Required) ID to find the template\n"
-										}
-									]
-								}
-							},
-							"status": "Internal Server Error",
-							"code": 500,
-							"_postman_previewlanguage": "text",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json+problem"
-								}
-							],
-							"cookie": [],
-							"body": ""
-						}
-					]
+					"response": []
 				}
 			]
 		}
