@@ -1,0 +1,15 @@
+server:
+  shutdown: immediate
+  error:
+    include-binding-errors: always
+    include-message: always
+    include-path: always
+    include-stacktrace: always
+    include-exception: true
+
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      additional-exclude: "test/**"

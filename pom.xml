@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.3.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.github.overz</groupId>
+	<artifactId>spring-thymeleaf</artifactId>
+	<version>0.0.1</version>
+	<name>spring-thymeleaf</name>
+	<description>spring-thymeleaf</description>
+
+	<properties>
+		<java.version>21</java.version>
+		<spring-cloud.version>2023.0.3</spring-cloud.version>
+		<springdoc.version>2.6.0</springdoc.version>
+		<openapi-gen.version>7.9.0</openapi-gen.version>
+		<resources.path>${project.basedir}/src/main/resources</resources.path>
+		<openapi.path>${resources.path}/openapi</openapi.path>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!--	SPRINGDOC-OPENAPI-UI & SPRINGDOC-OPENAPI-SECURITY IS USED FOR SPRING 2.x	-->
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springdoc</groupId>-->
+		<!--			<artifactId>springdoc-openapi-ui</artifactId>-->
+		<!--			<version>${springdoc.version}</version>-->
+		<!--		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-security -->
+		<!--		<dependency>-->
+		<!--			<groupId>org.springdoc</groupId>-->
+		<!--			<artifactId>springdoc-openapi-security</artifactId>-->
+		<!--			<version>${springdoc.version}</version>-->
+		<!--		</dependency>-->
+
+		<!--	SPRINGDOC-OPENAPI-* COMPATIBLE WITH SPRING 3.x	-->
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-common</artifactId>
+			<version>${springdoc.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.github.cdimascio/java-dotenv -->
+		<dependency>
+			<groupId>io.github.cdimascio</groupId>
+			<artifactId>java-dotenv</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf-spring6 -->
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring6</artifactId>
+			<version>3.1.2.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.5.13.4</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.xhtmlrenderer/flying-saucer-pdf -->
+		<dependency>
+			<groupId>org.xhtmlrenderer</groupId>
+			<artifactId>flying-saucer-pdf</artifactId>
+			<version>9.10.2</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.openapitools</groupId>
+				<artifactId>openapi-generator-maven-plugin</artifactId>
+				<version>${openapi-gen.version}</version>
+				<configuration>
+					<generatorName>spring</generatorName>
+					<generateSupportingFiles>true</generateSupportingFiles>
+					<generateModels>true</generateModels>
+					<supportingFilesToGenerate>RestConfiguration.java,ApiUtil.java</supportingFilesToGenerate>
+					<library>spring-boot</library>
+					<modelNameSuffix>Representation</modelNameSuffix>
+					<skipValidateSpec>true</skipValidateSpec>
+					<configOptions>
+						<basePackage>${project.groupId}</basePackage>
+						<apiPackage>${project.groupId}.api</apiPackage>
+						<modelPackage>${project.groupId}.presentation.representation</modelPackage>
+						<configPackage>${project.groupId}.config</configPackage>
+						<invokerPackage>${project.artifactId}</invokerPackage>
+						<delegatePattern>true</delegatePattern>
+						<documentationProvider>springdoc</documentationProvider>
+						<openApiNullable>false</openApiNullable>
+						<useJakartaEe>true</useJakartaEe>
+						<interfaceOnly>false</interfaceOnly>
+						<hideGenerationTimestamp>true</hideGenerationTimestamp>
+						<dateLibrary>java21</dateLibrary>
+						<useBeanValidation>true</useBeanValidation>
+						<serializableModel>true</serializableModel>
+					</configOptions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>openapi-codegen-${project.artifactId}</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+						<configuration>
+							<inputSpec>${openapi.path}/v1.yaml</inputSpec>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:attr="lang=${lang}">
+	<head>
+		<title>Book Template</title>
+		<meta charset="UTF-8" />
+		<style th:utext="${book_template_style}"></style>
+		<script th:utext="${book_template_script}"></script>
+	</head>
+	<body>
+		<h1 th:text="#{book_template.title}">Lista de Livros</h1>
+		<span th:text="#{book_template.function.generation_time(${generationTime})}"></span>
+		<h3 th:utext="#{book_template.function.example_1(${username})}"></h3>
+		<table>
+			<thead>
+				<tr>
+					<th th:text="#{book_template.tables.table_1.column_1}">Nome</th>
+					<th th:text="#{book_template.tables.table_1.column_2}">Autor</th>
+					<th th:text="#{book_template.tables.table_1.column_3}">Descrição</th>
+					<th th:text="#{book_template.tables.table_1.column_4}">Data de Criação</th>
+					<th th:text="#{book_template.tables.table_1.column_5}">Data de Publicação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${books}">
+					<td th:text="${book.name}">Nome</td>
+					<td th:text="${book.author}">Autor</td>
+					<td th:text="${book.description}">Descrição</td>
+					<td th:text="${book.createdAt}">Data de Criação</td>
+					<td th:text="${book.publishedAt}">Data de Publicação</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="btn">
+			<button onclick="hello()" th:text="#{book_template.buttons.buton_1.text}" >Clique aqui</button>
+		</div>
+	</body>
+</html>
