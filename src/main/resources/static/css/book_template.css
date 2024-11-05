@@ -12,17 +12,24 @@ table {
 	width: 100%;
 	border-collapse: collapse;
 	margin-top: 20px;
+	table-layout: fixed; /* Garante que as colunas tenham larguras fixas */
 }
 
 th, td {
 	border: 1px solid #ddd;
 	padding: 8px;
 	text-align: left;
+	page-break-inside: avoid; /* Evita quebras de página dentro de células */
+	word-wrap: break-word; /* Quebra palavras longas */
 }
 
 th {
 	background-color: #f2f2f2;
 	color: #333;
+}
+
+tr {
+	page-break-inside: avoid; /* Evita quebras de página dentro de linhas */
 }
 
 tr:nth-child(even) {
@@ -31,6 +38,10 @@ tr:nth-child(even) {
 
 tr:hover {
 	background-color: #f1f1f1;
+}
+
+.page-break {
+	page-break-before: always; /* Força uma quebra de página antes deste elemento */
 }
 
 .btn {
@@ -56,4 +67,25 @@ button {
 
 button:hover {
 	background-color: #45a049;
+}
+
+/* Definindo larguras específicas para cada coluna */
+th:nth-child(1), td:nth-child(1) {
+	width: 20%; /* Nome */
+}
+
+th:nth-child(2), td:nth-child(2) {
+	width: 20%; /* Autor */
+}
+
+th:nth-child(3), td:nth-child(3) {
+	width: 30%; /* Descrição */
+}
+
+th:nth-child(4), td:nth-child(4) {
+	width: 15%; /* Data de Criação */
+}
+
+th:nth-child(5), td:nth-child(5) {
+	width: 15%; /* Data de Publicação */
 }

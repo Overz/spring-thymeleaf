@@ -33,4 +33,8 @@ public enum TemplateEnum {
 
 		throw new EnumConstantNotPresentException(TemplateEnum.class, v);
 	}
+
+	public String getImagePath() {
+		return String.format("/static/assets/%s.png", getId());
+	}
 }

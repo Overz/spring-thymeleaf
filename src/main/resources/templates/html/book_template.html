@@ -10,6 +10,12 @@
 		<h1 th:text="#{book_template.title}">Lista de Livros</h1>
 		<span th:text="#{book_template.function.generation_time(${generationTime})}"></span>
 		<h3 th:utext="#{book_template.function.example_1(${username})}"></h3>
+		<img
+			th:src="'data:image/png;base64,' + ${book_template_img}"
+			alt="example image"
+			width="640"
+			style="display: block; margin: 0 auto;"
+		/>
 		<table>
 			<thead>
 				<tr>
@@ -21,17 +27,21 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="book : ${books}">
-					<td th:text="${book.name}">Nome</td>
-					<td th:text="${book.author}">Autor</td>
-					<td th:text="${book.description}">Descrição</td>
+				<tr th:each="book, iterStat : ${books}">
+					<td th:text="${book.name} ?: 'N/A'">Nome</td>
+					<td th:text="${book.author} ?: 'N/A'">Autor</td>
+					<td th:text="${book.description} ?: 'N/A'">Descrição</td>
 					<td th:text="${book.createdAt}">Data de Criação</td>
 					<td th:text="${book.publishedAt}">Data de Publicação</td>
 				</tr>
+				<!-- Adicione a classe page-break onde necessário -->
+				<tr class="page-break"></tr>
+				<!-- Adicione a classe page-break condicionalmente -->
+<!--				<div th:if="${iterStat.index % 20 == 0}" class="page-break"></div>-->
 			</tbody>
 		</table>
 		<div class="btn">
-			<button onclick="hello()" th:text="#{book_template.buttons.buton_1.text}" >Clique aqui</button>
+			<button onclick="hello()" th:text="#{book_template.buttons.buton_1.text}">Clique aqui</button>
 		</div>
 	</body>
 </html>

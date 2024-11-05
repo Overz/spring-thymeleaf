@@ -24,6 +24,7 @@ paths:
       - $ref: "#/components/parameters/GenerationId"
       - $ref: "#/components/parameters/Name"
       - $ref: "#/components/parameters/Language"
+      - $ref: "#/components/parameters/Size"
     get:
       summary: "Receive the template"
       operationId: "getTemplate"
@@ -52,14 +53,15 @@ paths:
         500:
           $ref: "#/components/responses/400"
 
-  /v1/pdf/{id}:
+  /v1/pdf/encoded/{id}:
     parameters:
       - $ref: "#/components/parameters/GenerationId"
       - $ref: "#/components/parameters/Name"
       - $ref: "#/components/parameters/Language"
+      - $ref: "#/components/parameters/Size"
     get:
       summary: "Generate the Base64 PDF"
-      operationId: "getPdf"
+      operationId: "getPdfEncoded"
       tags:
         - "Pdf"
       responses:
@@ -69,7 +71,41 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pdf"
+                $ref: "#/components/schemas/DocumentEncoded"
+              examples:
+                Pdf_1:
+                  $ref: "#/components/examples/Pdf_2"
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+  /v1/pdf/preview/{id}:
+    parameters:
+      - $ref: "#/components/parameters/GenerationId"
+      - $ref: "#/components/parameters/Name"
+      - $ref: "#/components/parameters/Language"
+      - $ref: "#/components/parameters/Size"
+    get:
+      summary: "Generate the Base64 PDF"
+      operationId: "getPdfPreview"
+      tags:
+        - "Pdf"
+      responses:
+        200:
+          description: |
+            Return a base64 pdf
+          content:
+            application/pdf:
+              schema:
+                $ref: "#/components/schemas/DocumentPreview"
               examples:
                 Pdf_1:
                   $ref: "#/components/examples/Pdf_1"
@@ -84,6 +120,7 @@ paths:
           $ref: "#/components/responses/400"
         500:
           $ref: "#/components/responses/400"
+
 
 components:
   headers:
@@ -129,21 +166,35 @@ components:
         A parameter used for internalization (i18)
       schema:
         type: "string"
+        default: "en"
         enum:
           - "en"
           - "pt"
+
+    Size:
+      in: "query"
+      name: "size"
+      required: true
+      description: |
+        A number of rows to generate the content
+      schema:
+        type: "integer"
 
   schemas:
     Template:
       type: "string"
 
-    Pdf:
+    DocumentEncoded:
       type: "object"
       required:
         - content
       properties:
         content:
           type: "string"
+
+    DocumentPreview:
+      type: "string"
+      format: "binary"
 
     Error:
       type: object
@@ -222,10 +273,16 @@ components:
     Pdf_1:
       summary: "Pdf_1"
       description: |
-        A base64 pdf generate from html template
+        A base64 pdf generated from html template
       value: {
         content: "base64..."
       }
+
+    Pdf_2:
+      summary: "Pdf_2"
+      description: |
+        A binary pdf generated from html template
+      value: "JVBERi0xLjQKJ..."
 
     Error_1:
       summary: "Error_1"
