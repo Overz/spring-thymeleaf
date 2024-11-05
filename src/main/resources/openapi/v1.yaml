@@ -74,7 +74,7 @@ paths:
                 $ref: "#/components/schemas/DocumentEncoded"
               examples:
                 Pdf_1:
-                  $ref: "#/components/examples/Pdf_2"
+                  $ref: "#/components/examples/Pdf_1"
           headers:
             Content-Type:
               $ref: "#/components/headers/Content-Type"
@@ -94,21 +94,21 @@ paths:
       - $ref: "#/components/parameters/Language"
       - $ref: "#/components/parameters/Size"
     get:
-      summary: "Generate the Base64 PDF"
+      summary: "Generate the Binary PDF"
       operationId: "getPdfPreview"
       tags:
         - "Pdf"
       responses:
         200:
           description: |
-            Return a base64 pdf
+            Return a binary pdf
           content:
             application/pdf:
               schema:
                 $ref: "#/components/schemas/DocumentPreview"
               examples:
                 Pdf_1:
-                  $ref: "#/components/examples/Pdf_1"
+                  $ref: "#/components/examples/Pdf_2"
           headers:
             Content-Type:
               $ref: "#/components/headers/Content-Type"
