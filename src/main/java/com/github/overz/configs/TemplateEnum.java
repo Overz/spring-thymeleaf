@@ -18,11 +18,15 @@ public enum TemplateEnum {
 	private final TemplateMode style;
 
 	public String getStylePath() {
-		return String.format("/static/%s/%s.css", getStyle().name().toLowerCase(), getId());
+		return String.format("/static/css/%s.css", getId());
 	}
 
 	public String getScriptPath() {
 		return String.format("/static/scripts/%s.js", getId());
+	}
+
+	public String getImagePath() {
+		return String.format("/static/assets/%s.png", getId());
 	}
 
 	public static TemplateEnum parse(String v) {
@@ -32,9 +36,5 @@ public enum TemplateEnum {
 		}
 
 		throw new EnumConstantNotPresentException(TemplateEnum.class, v);
-	}
-
-	public String getImagePath() {
-		return String.format("/static/assets/%s.png", getId());
 	}
 }

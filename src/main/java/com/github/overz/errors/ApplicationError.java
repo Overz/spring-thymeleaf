@@ -36,7 +36,7 @@ public class ApplicationError extends RuntimeException implements ErrorResponse 
 		this.status = status;
 		this.headers = headers != null ? headers : new HttpHeaders();
 		this.cls = cls;
-		this.problem = ProblemDetail.forStatus(status);
+		this.problem = ProblemDetail.forStatusAndDetail(status, message);
 		this.problem.setProperties(properties);
 	}
 

@@ -13,7 +13,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 @Slf4j
@@ -22,11 +21,13 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	@Bean
 	@ConfigurationProperties("spring.messages")
 	public MessageSourceProperties messageSourceProperties() {
+		log.info("Configuring i18n properties");
 		return new MessageSourceProperties();
 	}
 
 	@Bean
 	public MessageSource messageSource(MessageSourceProperties properties) {
+		log.info("Configuring i18n source boundles");
 		var source = new ReloadableResourceBundleMessageSource();
 		source.setBasename(properties.getBasename());
 		source.setDefaultEncoding(properties.getEncoding().name());
@@ -56,6 +57,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		log.info("Adding request interceptors");
 		registry.addInterceptor(localeChangeInterceptor());
 	}
 }

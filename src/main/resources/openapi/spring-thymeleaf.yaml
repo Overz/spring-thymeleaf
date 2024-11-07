@@ -1,0 +1,579 @@
+openapi: "3.0.3"
+
+info:
+  title: "Spring Thymeleaf example - V1"
+  description: |
+    An API developed using Thymeleaf and i18n to generate an PDF
+  version: "0.0.1"
+
+servers:
+  - url: "http://localhost:3000"
+    description: "development server"
+
+tags:
+  - name: "Document"
+    description: |
+      Create documents, templates, etc.
+  - name: "Books"
+    description: |
+      CRUD of Books
+
+paths:
+  /v1/template/{id}:
+    parameters:
+      - $ref: "#/components/parameters/GenerationId"
+      - $ref: "#/components/parameters/Name"
+      - $ref: "#/components/parameters/Language"
+    get:
+      summary: "Receive the template"
+      operationId: "getTemplate"
+      tags:
+        - "Document"
+      responses:
+        200:
+          description: |
+            Return an HTML with the processed template
+          content:
+            text/html:
+              schema:
+                $ref: "#/components/schemas/Template"
+              examples:
+                Template_1:
+                  $ref: "#/components/examples/HtmlTemplate"
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+  /v1/pdf/encoded/{id}:
+    parameters:
+      - $ref: "#/components/parameters/GenerationId"
+      - $ref: "#/components/parameters/Name"
+      - $ref: "#/components/parameters/Language"
+    get:
+      summary: "Generate the Base64 PDF"
+      operationId: "getPdfEncoded"
+      tags:
+        - "Document"
+      responses:
+        200:
+          description: |
+            Return a base64 pdf
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentEncoded"
+              examples:
+                Pdf_1:
+                  $ref: "#/components/examples/EncodedPdf"
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+  /v1/pdf/preview/{id}:
+    parameters:
+      - $ref: "#/components/parameters/GenerationId"
+      - $ref: "#/components/parameters/Name"
+      - $ref: "#/components/parameters/Language"
+    get:
+      summary: "Generate the Binary PDF"
+      operationId: "getPdfPreview"
+      tags:
+        - "Document"
+      responses:
+        200:
+          description: |
+            Return a binary pdf
+          content:
+            application/pdf:
+              schema:
+                $ref: "#/components/schemas/DocumentPreview"
+              examples:
+                Pdf_1:
+                  $ref: "#/components/examples/BinaryPdf"
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+  /v1/books:
+    get:
+      summary: "List all books"
+      operationId: "getBooks"
+      tags:
+        - "Books"
+      responses:
+        200:
+          description: |
+            A List of books
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  allOf:
+                    - $ref: "#/components/schemas/Book"
+                  required:
+                    - id
+                    - name
+                    - author
+                    - description
+                    - createdAt
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+    post:
+      summary: "Create a new book"
+      operationId: "postBook"
+      tags:
+        - "Books"
+      requestBody:
+        description: "Representation of book to save in database"
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Book"
+              required:
+                - name
+                - author
+                - description
+            examples:
+              Book_1:
+                $ref: "#/components/examples/NewBook"
+      responses:
+        200:
+          description: |
+            All the book with id and creation date
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Book"
+                required:
+                  - id
+                  - name
+                  - author
+                  - description
+                  - createdAt
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+    put:
+      summary: "Update the book content"
+      operationId: "putBook"
+      tags:
+        - "Books"
+      requestBody:
+        description: "Representation of book to save in database"
+        required: true
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/Book"
+              required:
+                - name
+                - author
+                - description
+                - createdAt
+                - publishedAt
+            examples:
+              Book_1:
+                $ref: "#/components/examples/FullBook"
+      responses:
+        204:
+          description: |
+            Nothing if success
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+    patch:
+      summary: "Update the book content"
+      operationId: "patchBook"
+      tags:
+        - "Books"
+      requestBody:
+        description: "Representation of book to save in database"
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Book"
+            examples:
+              Book_1:
+                $ref: "#/components/examples/HalfBook"
+      responses:
+        204:
+          description: |
+            Nothing if success
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+  /v1/books/{id}:
+    parameters:
+      - $ref: "#/components/parameters/PathId"
+    get:
+      summary: "Find one book by id"
+      operationId: "getOneBook"
+      tags:
+        - "Books"
+      responses:
+        200:
+          description: |
+            One book
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/Book"
+                required:
+                  - id
+                  - name
+                  - author
+                  - description
+                  - createdAt
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+    delete:
+      summary: "Delete one book by id"
+      operationId: "deleteOneBook"
+      tags:
+        - "Books"
+      responses:
+        204:
+          description: |
+            Nothing if success
+          headers:
+            Content-Type:
+              $ref: "#/components/headers/Content-Type"
+            Date:
+              $ref: "#/components/headers/Date"
+            Keep-Alive:
+              $ref: "#/components/headers/Keep-Alive"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/400"
+
+components:
+  headers:
+    Content-Type:
+      description: "Type of the content"
+      schema:
+        type: "string"
+    Date:
+      description: "Response date (now)"
+      schema:
+        type: "string"
+    Keep-Alive:
+      description: "Timeout and a limit for requests on a connection"
+      schema:
+        type: "string"
+
+  parameters:
+    GenerationId:
+      in: "path"
+      name: "id"
+      required: true
+      description: |
+        ID to find the template
+      schema:
+        type: "string"
+        enum:
+          - "book_template"
+
+    Name:
+      in: "query"
+      name: "name"
+      required: true
+      description: |
+        An parameter passed for code generation
+      schema:
+        type: "string"
+
+    Language:
+      in: "query"
+      name: "lang"
+      required: false
+      description: |
+        A parameter used for internalization (i18)
+      schema:
+        type: "string"
+        default: "en"
+        enum:
+          - "en"
+          - "pt"
+
+    PathId:
+      in: "path"
+      name: "id"
+      required: true
+      description: |
+        A simple id
+      schema:
+        type: "string"
+
+  schemas:
+    Template:
+      type: "string"
+
+    DocumentEncoded:
+      type: "object"
+      required:
+        - content
+      properties:
+        content:
+          type: "string"
+
+    DocumentPreview:
+      type: "string"
+      format: "binary"
+
+    Book:
+      type: "object"
+      description: |
+        Representation of book
+      properties:
+        id:
+          type: "string"
+          nullable: false
+          minLength: 1
+        name:
+          type: "string"
+          nullable: false
+          minLength: 1
+        author:
+          type: "string"
+          nullable: false
+        description:
+          type: "string"
+          nullable: false
+          minLength: 1
+        createdAt:
+          type: "string"
+          format: "date"
+          nullable: false
+        publishedAt:
+          type: "string"
+          format: "date"
+          nullable: false
+
+    Error:
+      type: object
+      description: |
+        Error RFC7807
+      required:
+        - type
+        - title
+        - detail
+        - status
+        - instance
+      properties:
+        type:
+          type: "string"
+          description: "URI that explain the error"
+        title:
+          type: "string"
+          description: "Shor title"
+        detail:
+          type: "string"
+          description: "Detail message from error"
+        status:
+          type: "integer"
+          description: "Response status"
+        instance:
+          type: "string"
+          description: "Request path that throw error"
+        properties:
+          type: "object"
+          description: "HashMap with additional information"
+
+  responses:
+    400:
+      description: |
+        Errors throwed when validating the request
+      content:
+        application/json+problem:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            Error_1:
+              $ref: "#/components/examples/FullError"
+            Error_2:
+              $ref: "#/components/examples/HalfError"
+
+    500:
+      description: |
+        Error throwed by the application
+      content:
+        application/json+problem:
+          schema:
+            $ref: "#/components/schemas/Error"
+          examples:
+            Error_1:
+              $ref: "#/components/examples/FullError"
+            Error_2:
+              $ref: "#/components/examples/HalfError"
+
+  examples:
+    HtmlTemplate:
+      summary: "HTML Template"
+      description: |
+        Example of success template generation
+      value: |
+        <!DOCTYPE html>
+        <html xmlns:th="http://www.thymeleaf.org" lang="en">
+          <head>
+            <title>Book Template</title>
+            <meta charset="UTF-8" />
+          </head>
+          <body>
+            <h1>Success</h1>
+          </body>
+        </html>
+
+    EncodedPdf:
+      summary: "Encoded Pdf"
+      description: |
+        A base64 pdf generated from html template
+      value: {
+        content: "base64..."
+      }
+
+    BinaryPdf:
+      summary: "Binary Pdf"
+      description: |
+        A binary pdf generated from html template
+      value: "JVBERi0xLjQKJ..."
+
+    FullBook:
+      summary: "Full Book"
+      description: |
+        A full book representation
+      value: {
+        id: "A9djnqw",
+        name: "Harry Potter",
+        author: "J.K Rowling",
+        description: "Harry potter is a book of...",
+        createdAt: "1997-06-26",
+        publishedAt: "1999-10-01"
+      }
+
+    HalfBook:
+      summary: "Half book"
+      description: |
+        A half book representation
+      value: {
+        id: "s9duaiw",
+        name: "Other book",
+        author: "Other author",
+        description: "A description",
+        createdAt: "2024-01-01"
+      }
+
+    NewBook:
+      summary: "New Book"
+      description: |
+        A required parameters to create the book in database
+      value: {
+        name: "Other book",
+        author: "Other author",
+        description: "A description"
+      }
+
+    FullError:
+      summary: "Full Error"
+      description: |
+        Error representation of RFC7807
+      value: {
+        type: "https://example.com/explanation",
+        title: "Not resource found",
+        detail: "The server could not find any resource in the request/path",
+        status: 400,
+        instance: "/v1/example"
+      }
+
+    HalfError:
+      summary: "Half Error"
+      description: |
+        Error representation of RFC7807
+      value: {
+        type: "https://example.com/explanation",
+        title: "Not resource found",
+        detail: "The server could not find any resource in the request/path",
+        status: 500,
+        instance: "/v1/example",
+        properties: {
+          key: "value"
+        }
+      }

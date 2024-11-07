@@ -27,6 +27,16 @@ spring:
       enabled: never
   main:
     banner-mode: off
+  datasource:
+    url: "${DATABASE_URL}"
+    name: "${DATABASE_USERNAME}"
+    password: "${DATABASE_PASSWORD}"
+    driver-class-name: "${DATABASE_DRIVER}"
+    hikari:
+      maximum-pool-size: "${DATABASE_POOL_SIZE}"
+      minimum-idle: "${DATABASE_MINIMUM_IDLE}"
+      auto-commit: true
+      max-lifetime: "${DATABASE_MAX_CONN_LIFETIME}"
   jackson:
     default-property-inclusion: non_empty
     deserialization:
@@ -69,10 +79,14 @@ resilience4j:
         retry-exceptions:
           - org.springframework.web.client.RestClientException
           - java.net.SocketTimeoutException
+      book-repository:
+        base-config: "default"
+        ignore-exceptions:
+          - com.github.overz.errors.BadRequestException
 
 app:
   internalization:
-    default-locale: en
+    default-locale: "en"
   template:
     config:
       html:
@@ -80,8 +94,8 @@ app:
         suffix: ".html"
         cacheable: false
       css:
-        prefix: "classpath:static/css/"
+        prefix: "classpath:templates/css/"
         suffix: ".css"
       js:
-        prefix: "classpath:static/js/"
+        prefix: "classpath:templates/js/"
         suffix: ".js"

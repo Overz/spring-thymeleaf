@@ -13,3 +13,6 @@ spring:
       enabled: true
     restart:
       additional-exclude: "test/**"
+  h2:
+    console:
+      enabled: true

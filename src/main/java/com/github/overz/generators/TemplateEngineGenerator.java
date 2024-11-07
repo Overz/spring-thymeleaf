@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.stereotype.Service;
 import org.springframework.util.StreamUtils;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -21,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@Service
 @RequiredArgsConstructor
 public class TemplateEngineGenerator implements EngineGenrator {
 	private final SpringTemplateEngine engine;

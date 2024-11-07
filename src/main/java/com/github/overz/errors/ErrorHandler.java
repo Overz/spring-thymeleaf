@@ -20,7 +20,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler({ApplicationError.class})
 	public ResponseEntity<Object> handleTemplateGenerationException(ApplicationError ex, WebRequest request) {
-		return handleExceptionInternal(ex, null, ex.getHeaders(), INTERNAL_SERVER_ERROR, request);
+		return handleExceptionInternal(ex, null, ex.getHeaders(), ex.getStatusCode(), request);
 	}
 
 	@ExceptionHandler({MissingResourceException.class})

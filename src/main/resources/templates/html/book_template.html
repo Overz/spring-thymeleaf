@@ -28,16 +28,16 @@
 			</thead>
 			<tbody>
 				<tr th:each="book, iterStat : ${books}">
-					<td th:text="${book.name} ?: 'N/A'">Nome</td>
-					<td th:text="${book.author} ?: 'N/A'">Autor</td>
-					<td th:text="${book.description} ?: 'N/A'">Descrição</td>
-					<td th:text="${book.createdAt}">Data de Criação</td>
-					<td th:text="${book.publishedAt}">Data de Publicação</td>
+					<td th:text="${book.nmBook} ?: 'N/A'">Nome</td>
+					<td th:text="${book.nmAuthor} ?: 'N/A'">Autor</td>
+					<td th:text="${book.dsDescription} ?: 'N/A'">Descrição</td>
+					<td th:text="${book.dtCreatedAt} ?: 'N/A'">Data de Criação</td>
+					<td th:text="${book.dtPublishedAt} ?: 'N/A' ">Data de Publicação</td>
 				</tr>
 				<!-- Adicione a classe page-break onde necessário -->
-<!--				<tr class="page-break"></tr>-->
+				<!-- <tr class="page-break"></tr> -->
 				<!-- Adicione a classe page-break condicionalmente -->
-<!--				<div th:if="${iterStat.index % 20 == 0}" class="page-break"></div>-->
+				<!-- <div th:if="${iterStat.index % 20 == 0}" class="page-break"></div> -->
 			</tbody>
 		</table>
 		<div class="btn">
