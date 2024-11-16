@@ -1,11 +1,11 @@
 debug: "${DEBUG:false}"
 
 server:
-  port: "${APP_PORT:3000}"
+  port: "${APP_PORT:8080}"
   address: "${APP_ADDRESS:0.0.0.0}"
   shutdown: graceful
   servlet:
-    context-path: ""
+    context-path: "${APP_CONTEXT_PATH:}"
     session:
       cookie:
         http-only: true
@@ -28,15 +28,15 @@ spring:
   main:
     banner-mode: off
   datasource:
-    url: "${DATABASE_URL}"
-    name: "${DATABASE_USERNAME}"
-    password: "${DATABASE_PASSWORD}"
-    driver-class-name: "${DATABASE_DRIVER}"
+    url: "jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;INIT=RUNSCRIPT FROM 'classpath:h2-init.sql'"
+    username: "sa"
+    password: ""
+    driver-class-name: "org.h2.Driver"
     hikari:
-      maximum-pool-size: "${DATABASE_POOL_SIZE}"
-      minimum-idle: "${DATABASE_MINIMUM_IDLE}"
+      maximum-pool-size: 10
+      minimum-idle: 2
       auto-commit: true
-      max-lifetime: "${DATABASE_MAX_CONN_LIFETIME}"
+      max-lifetime: 3600000
   jackson:
     default-property-inclusion: non_empty
     deserialization:
@@ -54,15 +54,18 @@ spring:
     cache-duration: "30s"
     fallback-to-system-locale: true
   web:
-    locale: "${APP_LOCALE}"
+    locale: "${APP_LOCALE:en}"
   thymeleaf:
     enable-spring-el-compiler: true
     cache: false
     encoding: UTF-8
+  h2:
+    console:
+      enabled: true
 
 management:
   server:
-    port: "${MANAGMENT_PORT:9090}"
+    port: "${APP_MANAGMENT_PORT:9090}"
   endpoints:
     enabled-by-default: true
 
@@ -70,12 +73,12 @@ resilience4j:
   retry:
     configs:
       default:
-        max-attempts: "${RESILIENCE4J_MAX_RETRY}"
-        wait-duration: "${RESILIENCE4J_WAIT_DURATION}"
+        max-attempts: "8"
+        wait-duration: "2s"
         fail-after-max-attempts: true
         enable-exponential-backoff: true
-        exponential-backoff-multiplier: "${RESILIENCE4J_BACKOFF_MULTIPLIER}"
-        exponential-max-wait-duration: "${RESILIENCE4J_MAX_WAIT_DURATION}"
+        exponential-backoff-multiplier: "1.4"
+        exponential-max-wait-duration: "3m"
         retry-exceptions:
           - org.springframework.web.client.RestClientException
           - java.net.SocketTimeoutException

@@ -175,6 +175,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>app</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.graalvm.buildtools</groupId>

@@ -1,0 +1,9 @@
+.*
+docs
+target
+LICENSE
+lombok.config
+mvnw*
+*.md
+dockerfile
+!pom.xml
